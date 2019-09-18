@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+import { withRouter } from "react-router-dom";
+
 import TextField from "@material-ui/core/TextField";
 import { Grid, Paper, Button } from "@material-ui/core";
 
@@ -12,12 +15,17 @@ const Signup = props => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [signupUser] = useMutation(SIGNUP_USER);
+  const [signupUser, { loading, error }] = useMutation(SIGNUP_USER);
 
   const submitHandle = () => {
-    signupUser({ variables: { username, email, password } }).then(res => {
-      console.log(res);
-    });
+    signupUser({ variables: { username, email, password } }).then(
+      ({ data }) => {
+        localStorage.setItem("token", data.signupUser.token);
+        props.refetch();
+        props.history.push("/");
+        console.log(data);
+      }
+    );
   };
 
   return (
@@ -78,10 +86,12 @@ const Signup = props => {
               Submit
             </Button>
           </form>
+          {error && <p>{error.message}</p>}
+          {loading && <p>Loading</p>}
         </Paper>
       </Grid>
     </Grid>
   );
 };
 
-export default Signup;
+export default withRouter(Signup);

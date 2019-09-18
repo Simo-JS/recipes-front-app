@@ -9,7 +9,7 @@ const withSession = Component => {
     if (error) throw new Error("Something went wrong man!");
     if (loading) return null;
     console.log(data);
-    return <Component {...props} refetch={refetch} />;
+    return <Component {...props} refetch={refetch} session={data} />;
   };
 };
 

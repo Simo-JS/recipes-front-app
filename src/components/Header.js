@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 
+import Signout from "./Signout";
+
 import {
   Button,
   Typography,
@@ -24,8 +26,14 @@ const Header = props => {
     setAnchorEl(event.currentTarget);
   }
 
-  function handleClose() {
+  function handleClose(client) {
     setAnchorEl(null);
+  }
+  function handleSignout(client, history) {
+    setAnchorEl(null);
+    localStorage.setItem("token", "");
+    client.resetStore();
+    history.push("/");
   }
 
   return (
@@ -86,7 +94,7 @@ const Header = props => {
               >
                 Profile
               </MenuItem>
-              <MenuItem onClick={handleClose}>Sign out</MenuItem>
+              <Signout clicked={handleSignout} />
             </Menu>
           </div>
         )}

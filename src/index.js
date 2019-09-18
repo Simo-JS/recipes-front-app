@@ -8,6 +8,7 @@ import Signup from "./components/Auth/Signup";
 import Header from "./components/Header";
 import Search from "./components/Search";
 import AddRecipe from "./components/AddRecipe";
+import RecipeDetail from "./components/RecipeDetail";
 
 import withSession from "./components/withSession";
 
@@ -45,6 +46,7 @@ const Root = props => (
       <Route path="/search" component={Search} />
       <Route path="/profile" component={Profile} />
       <Route path="/recipe/add" component={AddRecipe} />
+      <Route path="/recipe/:_id" component={RecipeDetail} />
       <Route path="/signin" render={() => <Signin refetch={props.refetch} />} />
       <Route path="/signup" render={() => <Signup refetch={props.refetch} />} />
       <Redirect to="/" />

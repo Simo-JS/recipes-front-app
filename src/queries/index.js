@@ -20,6 +20,16 @@ export const ADD_RECIPE = gql`
   }
 `;
 
+export const SEARCH_RECIPES = gql`
+  query($searchTerm: String) {
+    searchRecipes(searchTerm: $searchTerm) {
+      _id
+      name
+      likes
+    }
+  }
+`;
+
 export const GET_ALL_RECIPES = gql`
   query {
     getAllRecipes {

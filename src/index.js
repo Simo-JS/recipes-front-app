@@ -45,7 +45,10 @@ const Root = props => (
       <Route path="/" exact component={App} />
       <Route path="/search" component={Search} />
       <Route path="/profile" component={Profile} />
-      <Route path="/recipe/add" component={AddRecipe} />
+      <Route
+        path="/recipe/add"
+        render={() => <AddRecipe session={props.session} />}
+      />
       <Route path="/recipe/:_id" component={RecipeDetail} />
       <Route path="/signin" render={() => <Signin refetch={props.refetch} />} />
       <Route path="/signup" render={() => <Signup refetch={props.refetch} />} />

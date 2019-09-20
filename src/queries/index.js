@@ -1,5 +1,25 @@
 import { gql } from "apollo-boost";
 
+export const ADD_RECIPE = gql`
+  mutation(
+    $name: String!
+    $description: String!
+    $category: String!
+    $instructions: String!
+    $username: String
+  ) {
+    addRecipe(
+      name: $name
+      description: $description
+      category: $category
+      instructions: $instructions
+      username: $username
+    ) {
+      _id
+    }
+  }
+`;
+
 export const GET_ALL_RECIPES = gql`
   query {
     getAllRecipes {

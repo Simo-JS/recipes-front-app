@@ -62,12 +62,17 @@ const Header = props => {
             Search
           </NavLink>
         </Typography>
-        <Button color="inherit" component={AdapterLink} to="/signin">
-          Sign in
-        </Button>
-        <Button color="inherit" component={AdapterLink} to="/signup">
-          Sign up
-        </Button>
+        {!props.session.getCurrentUser && (
+          <>
+            <Button color="inherit" component={AdapterLink} to="/signin">
+              Sign in
+            </Button>
+            <Button color="inherit" component={AdapterLink} to="/signup">
+              Sign up
+            </Button>
+          </>
+        )}
+
         {props.session && props.session.getCurrentUser && (
           <div>
             <IconButton onClick={handleMenu} color="inherit">

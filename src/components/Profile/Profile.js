@@ -1,4 +1,7 @@
 import React from "react";
+
+import withAuth from "../../hoc/withAuth";
+
 import UserInfo from "./UserInfo";
 import UserRecipes from "./UserRecipes";
 
@@ -12,4 +15,4 @@ const Profile = props => {
   );
 };
 
-export default Profile;
+export default withAuth(session => session && session.getCurrentUser)(Profile);

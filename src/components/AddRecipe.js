@@ -1,6 +1,8 @@
 import React, { useEffect, useReducer } from "react";
 import { withRouter } from "react-router-dom";
 
+import withAuth from "../hoc/withAuth";
+
 import {
   Grid,
   Paper,
@@ -14,7 +16,7 @@ import {
 
 import { useMutation } from "@apollo/react-hooks";
 
-import { ADD_RECIPE } from "../queries/index";
+import { ADD_RECIPE, GET_USER_RECIPES } from "../queries/index";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -68,7 +70,13 @@ const AddRecipe = props => {
   const handleAdd = () => {
     const { name, category, description, instructions, username } = state;
     addRecipe({
-      variables: { name, category, description, instructions, username }
+      variables: { name, category, description, instructions, username },
+      refetchQueries: [
+        {
+          query: GET_USER_RECIPES,
+          variables: { username: getCurrentUser.username }
+        }
+      ]
     }).then(({ data }) => {
       console.log(data);
       props.history.push("/");
@@ -147,4 +155,6 @@ const AddRecipe = props => {
   );
 };
 
-export default withRouter(AddRecipe);
+export default withAuth(session => session && session.getCurrentUser)(
+  withRouter(AddRecipe)
+);

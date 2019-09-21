@@ -40,6 +40,16 @@ export const GET_ALL_RECIPES = gql`
   }
 `;
 
+export const GET_USER_RECIPES = gql`
+  query($username: String!) {
+    getUserRecipes(username: $username) {
+      _id
+      name
+      category
+    }
+  }
+`;
+
 export const GET_RECIPE = gql`
   query($_id: ID!) {
     getRecipe(_id: $_id) {
@@ -62,6 +72,10 @@ export const GET_CURRENT_USER = gql`
       username
       email
       joined
+      favorites {
+        _id
+        name
+      }
     }
   }
 `;

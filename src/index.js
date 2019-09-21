@@ -16,7 +16,7 @@ import * as serviceWorker from "./serviceWorker";
 
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
-import Profile from "./components/Profile";
+import Profile from "./components/Profile/Profile";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/",
@@ -44,7 +44,10 @@ const Root = props => (
     <Switch>
       <Route path="/" exact component={App} />
       <Route path="/search" component={Search} />
-      <Route path="/profile" component={Profile} />
+      <Route
+        path="/profile"
+        render={() => <Profile session={props.session} />}
+      />
       <Route
         path="/recipe/add"
         render={() => <AddRecipe session={props.session} />}
